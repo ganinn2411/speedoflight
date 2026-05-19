@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Speed Of Light - شركة الشحن</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #E8001D;
+    --red-dark: #a30015;
+    --red-glow: rgba(232,0,29,0.4);
+    --black: #0a0a0a;
+    --black-2: #111111;
+    --black-3: #1a1a1a;
+    --white: #f5f5f5;
+    --gray: #888;
+    --gray-light: #333;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Cairo', sans-serif;
+    background: var(--black);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--black); }
+  ::-webkit-scrollbar-thumb { background: var(--red); border-radius: 3px; }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    background: rgba(10,10,10,0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(232,0,29,0.3);
+    padding: 0 2rem;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+    color: var(--white);
+  }
+  .logo span { color: var(--red); }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--gray);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: color 0.3s;
+    cursor: pointer;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--red); }
+
+  /* PAGES */
+  .page { display: none; padding-top: 70px; min-height: 100vh; }
+  .page.active { display: block; }
+
+  /* ===== HOME PAGE ===== */
+  .hero {
+    position: relative;
+    min-height: calc(100vh - 70px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 50%, rgba(232,0,29,0.15) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 20%, rgba(232,0,29,0.08) 0%, transparent 50%),
+      linear-gradient(180deg, #0a0a0a 0%, #111 50%, #0a0a0a 100%);
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(232,0,29,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(232,0,29,0.05) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(232,0,29,0.15);
+    border: 1px solid rgba(232,0,29,0.4);
+    color: var(--red);
+    padding: 0.4rem 1.2rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    animation: pulse-border 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-border {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(232,0,29,0.4); }
+    50% { box-shadow: 0 0 0 8px rgba(232,0,29,0); }
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 12vw, 10rem);
+    line-height: 0.9;
+    letter-spacing: 4px;
+    margin-bottom: 1rem;
+  }
+
+  .hero-title .line1 { color: var(--white); }
+  .hero-title .line2 { color: var(--red); text-shadow: 0 0 60px rgba(232,0,29,0.6); }
+  .hero-title .line3 { color: var(--white); }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--gray);
+    margin-bottom: 3rem;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--red);
+    color: white;
+    border: none;
+    padding: 0.9rem 2.5rem;
+    font-family: 'Cairo', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .btn-primary:hover {
+    background: var(--red-dark);
+    box-shadow: 0 0 30px rgba(232,0,29,0.5);
+    transform: translateY(-2px);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 0.9rem 2.5rem;
+    font-family: 'Cairo', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .btn-outline:hover {
+    border-color: var(--red);
+    color: var(--red);
+  }
+
+  /* STATS */
+  .stats-bar {
+    background: var(--black-2);
+    border-top: 1px solid var(--gray-light);
+    border-bottom: 1px solid var(--gray-light);
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    text-align: center;
+  }
+  .stat-item {}
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    color: var(--red);
+    line-height: 1;
+  }
+  .stat-label { color: var(--gray); font-size: 0.85rem; }
+
+  /* SERVICES */
+  .section {
+    padding: 5rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-title {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .section-title h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    letter-spacing: 3px;
+    margin-bottom: 0.5rem;
+  }
+  .section-title h2 span { color: var(--red); }
+  .section-title p { color: var(--gray); }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .service-card {
+    background: var(--black-2);
+    border: 1px solid var(--gray-light);
+    border-radius: 8px;
+    padding: 2rem;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--red);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+  }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-card:hover {
+    border-color: rgba(232,0,29,0.4);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  }
+
+  .service-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  .service-card h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .service-card p { color: var(--gray); font-size: 0.9rem; line-height: 1.6; }
+
+  /* ===== ABOUT PAGE ===== */
+  .about-hero {
+    background: linear-gradient(135deg, var(--black-2), var(--black-3));
+    border-bottom: 1px solid var(--gray-light);
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+  .about-hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4rem;
+    letter-spacing: 3px;
+    margin-bottom: 1rem;
+  }
+  .about-hero h1 span { color: var(--red); }
+  .about-hero p { color: var(--gray); max-width: 600px; margin: 0 auto; }
+
+  .about-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    margin-bottom: 4rem;
+  }
+
+  .about-text h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+    margin-bottom: 1.5rem;
+    color: var(--red);
+  }
+  .about-text p {
+    color: var(--gray);
+    line-height: 1.9;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+  }
+
+  .about-visual {
+    background: var(--black-2);
+    border: 1px solid var(--gray-light);
+    border-radius: 12px;
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .about-visual::after {
+    content: '⚡';
+    position: absolute;
+    bottom: -20px;
+    left: -10px;
+    font-size: 8rem;
+    opacity: 0.05;
+  }
+
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .value-card {
+    background: var(--black-2);
+    border: 1px solid var(--gray-light);
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+  }
+  .value-card .v-icon { font-size: 2rem; margin-bottom: 0.8rem; }
+  .value-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; }
+  .value-card p { color: var(--gray); font-size: 0.85rem; }
+
+  .team-section {
+    margin-top: 4rem;
+    padding-top: 4rem;
+    border-top: 1px solid var(--gray-light);
+  }
+
+  /* ===== CALCULATOR PAGE ===== */
+  .calc-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+  }
+
+  .calc-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .calc-header h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.5rem;
+    letter-spacing: 3px;
+  }
+  .calc-header h1 span { color: var(--red); }
+  .calc-header p { color: var(--gray); margin-top: 0.5rem; }
+
+  .calc-container {
+    background: var(--black-2);
+    border: 1px solid var(--gray-light);
+    border-radius: 12px;
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .calc-container h2 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--gray-light);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .form-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--gray);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .form-group input, .form-group select {
+    background: var(--black-3);
+    border: 1px solid var(--gray-light);
+    color: var(--white);
+    padding: 0.8rem 1rem;
+    border-radius: 6px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.95rem;
+    transition: border-color 0.3s;
+    direction: rtl;
+  }
+  .form-group input:focus, .form-group select:focus {
+    outline: none;
+    border-color: var(--red);
+  }
+  .form-group input::placeholder { color: var(--gray); }
+
+  .calc-result {
+    background: linear-gradient(135deg, rgba(232,0,29,0.1), rgba(232,0,29,0.05));
+    border: 1px solid rgba(232,0,29,0.4);
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    display: none;
+  }
+  .calc-result.show { display: block; }
+
+  .result-label { color: var(--gray); font-size: 0.9rem; margin-bottom: 0.5rem; }
+  .result-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4rem;
+    color: var(--red);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .result-currency { color: var(--gray); font-size: 1rem; }
+
+  .result-breakdown {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(232,0,29,0.2);
+  }
+  .breakdown-item {}
+  .breakdown-label { color: var(--gray); font-size: 0.8rem; }
+  .breakdown-value { font-weight: 700; font-size: 1rem; }
+
+  /* ===== ORDER PAGE ===== */
+  .order-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+  }
+
+  .order-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .order-header h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.5rem;
+    letter-spacing: 3px;
+  }
+  .order-header h1 span { color: var(--red); }
+  .order-header p { color: var(--gray); margin-top: 0.5rem; }
+
+  .platform-tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .platform-tab {
+    background: var(--black-2);
+    border: 1px solid var(--gray-light);
+    color: var(--gray);
+    padding: 0.6rem 1.5rem;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s;
+  }
+  .platform-tab.active, .platform-tab:hover {
+    background: var(--red);
+    border-color: var(--red);
+    color: white;
+  }
+
+  .order-form {
+    background: var(--black-2);
+    border: 1px solid var(--gray-light);
+    border-radius: 12px;
+    padding: 2.5rem;
+  }
+
+  .url-input-wrapper {
+    position: relative;
+    margin-bottom: 1.5rem;
+  }
+
+  .url-input-wrapper input {
+    width: 100%;
+    background: var(--black-3);
+    border: 2px solid var(--gray-light);
+    color: var(--white);
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+    direction: ltr;
+  }
+  .url-input-wrapper input:focus {
+    outline: none;
+    border-color: var(--red);
+  }
+
+  .product-preview {
+    background: var(--black-3);
+    border: 1px solid var(--gray-light);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    display: none;
+  }
+  .product-preview.show { display: flex; gap: 1rem; align-items: center; }
+  .preview-icon { font-size: 2.5rem; }
+  .preview-info h3 { font-weight: 700; margin-bottom: 0.3rem; }
+  .preview-info p { color: var(--gray); font-size: 0.85rem; }
+
+  .customer-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .whatsapp-btn {
+    width: 100%;
+    background: #25D366;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    font-family: 'Cairo', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+  }
+  .whatsapp-btn:hover {
+    background: #1fad56;
+    box-shadow: 0 10px 30px rgba(37,211,102,0.3);
+    transform: translateY(-2px);
+  }
+  .whatsapp-btn svg { width: 24px; height: 24px; fill: white; }
+
+  .note-box {
+    background: rgba(232,0,29,0.08);
+    border: 1px solid rgba(232,0,29,0.3);
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    color: var(--gray);
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--black-2);
+    border-top: 1px solid var(--gray-light);
+    padding: 3rem 2rem 1.5rem;
+    text-align: center;
+  }
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 3px;
+    margin-bottom: 1rem;
+  }
+  .footer-logo span { color: var(--red); }
+  footer p { color: var(--gray); font-size: 0.85rem; }
+  .footer-line {
+    border-top: 1px solid var(--gray-light);
+    margin-top: 2rem;
+    padding-top: 1rem;
+    color: var(--gray);
+    font-size: 0.8rem;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up { animation: fadeUp 0.6s ease forwards; }
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.2s; }
+  .delay-3 { animation-delay: 0.3s; }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .stats-bar { grid-template-columns: repeat(2, 1fr); }
+    .about-grid { grid-template-columns: 1fr; }
+    .values-grid { grid-template-columns: repeat(2, 1fr); }
+    .form-row { grid-template-columns: 1fr; }
+    .customer-fields { grid-template-columns: 1fr; }
+    .result-breakdown { grid-template-columns: 1fr; }
+    .nav-links { gap: 1rem; }
+    .hero-title { font-size: 3.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">SPEED OF <span>LIGHT</span></div>
+  <ul class="nav-links">
+    <li><a onclick="showPage('home')" class="active" id="nav-home">الرئيسية</a></li>
+    <li><a onclick="showPage('about')" id="nav-about">من نحن</a></li>
+    <li><a onclick="showPage('calculator')" id="nav-calculator">حاسبة الشحن</a></li>
+    <li><a onclick="showPage('order')" id="nav-order">اطلب الآن</a></li>
+  </ul>
+</nav>
+
+<!-- ===== HOME PAGE ===== -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-content fade-up">
+      <div class="hero-badge">⚡ أسرع خدمة شحن</div>
+      <h1 class="hero-title">
+        <div class="line1">SPEED</div>
+        <div class="line2">OF</div>
+        <div class="line3">LIGHT</div>
+      </h1>
+      <p class="hero-sub">شحن سريع وموثوق لجميع بضائعك — نوصلها بسرعة الضوء إلى باب منزلك</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="showPage('calculator')">احسب سعر الشحن</button>
+        <button class="btn-outline" onclick="showPage('order')">اطلب الآن</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat-item">
+      <div class="stat-num">+5000</div>
+      <div class="stat-label">شحنة منجزة</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">24H</div>
+      <div class="stat-label">توصيل سريع</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">98%</div>
+      <div class="stat-label">رضا العملاء</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">7/7</div>
+      <div class="stat-label">خدمة مستمرة</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">
+      <h2>خدماتنا <span>المميزة</span></h2>
+      <p>نقدم حلول شحن شاملة تناسب جميع احتياجاتك</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">🚀</div>
+        <h3>شحن سريع</h3>
+        <p>توصيل خلال 24 ساعة داخل المدينة مع تتبع مباشر للشحنة في كل لحظة</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📦</div>
+        <h3>شحن البضائع الثقيلة</h3>
+        <p>نتعامل مع جميع أحجام الطرود والبضائع بمعالجة آمنة ومضمونة</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🛍️</div>
+        <h3>شراء وشحن</h3>
+        <p>نشتري لك من Trendyol وHepsiburada وجميع المنصات الإلكترونية</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🌍</div>
+        <h3>شحن دولي</h3>
+        <p>نوصل بضائعك إلى جميع أنحاء العالم بأسعار تنافسية وموثوقية عالية</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🔒</div>
+        <h3>شحن آمن</h3>
+        <p>جميع شحناتنا مؤمنة ضد الأضرار والفقدان لراحة بالك التامة</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">💬</div>
+        <h3>دعم على مدار الساعة</h3>
+        <p>فريقنا متاح عبر واتساب لمساعدتك في أي وقت وأي استفسار</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-logo">SPEED OF <span>LIGHT</span></div>
+    <p>شركة الشحن الأسرع والأكثر موثوقية</p>
+    <div class="footer-line">© 2025 Speed Of Light — جميع الحقوق محفوظة</div>
+  </footer>
+</div>
+
+<!-- ===== ABOUT PAGE ===== -->
+<div class="page" id="page-about">
+  <div class="about-hero">
+    <h1>من <span>نحن</span></h1>
+    <p>قصة شركة شحن ولدت من شغف السرعة والاحترافية</p>
+  </div>
+
+  <div class="about-content">
+    <div class="about-grid">
+      <div class="about-text">
+        <h2>قصتنا</h2>
+        <p>تأسست شركة Speed Of Light بهدف واضح: تغيير مفهوم الشحن وجعله أسرع وأكثر موثوقية من أي وقت مضى. نحن نؤمن بأن الوقت ثمين، ولهذا نسعى دائماً لتوصيل شحناتك في أقصر وقت ممكن.</p>
+        <p>بدأنا كشركة صغيرة بأحلام كبيرة، واليوم نفخر بخدمة آلاف العملاء يومياً عبر خدمات شحن متنوعة تغطي جميع الاحتياجات.</p>
+        <p>فريقنا المتخصص يعمل على مدار الساعة لضمان وصول كل شحنة في الوقت المحدد وبأعلى درجات الأمان.</p>
+      </div>
+      <div class="about-visual">
+        <div style="text-align:center; padding: 1rem;">
+          <div style="font-size:5rem; margin-bottom:1rem;">⚡</div>
+          <div style="font-family:'Bebas Neue',sans-serif; font-size:2rem; color:var(--red); letter-spacing:2px;">SPEED OF LIGHT</div>
+          <div style="color:var(--gray); margin-top:0.5rem;">شحن بسرعة الضوء</div>
+          <div style="margin-top:2rem; display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+            <div style="background:var(--black-3); border-radius:8px; padding:1rem; border:1px solid var(--gray-light);">
+              <div style="font-family:'Bebas Neue',sans-serif; font-size:2rem; color:var(--red);">2020</div>
+              <div style="color:var(--gray); font-size:0.8rem;">سنة التأسيس</div>
+            </div>
+            <div style="background:var(--black-3); border-radius:8px; padding:1rem; border:1px solid var(--gray-light);">
+              <div style="font-family:'Bebas Neue',sans-serif; font-size:2rem; color:var(--red);">50+</div>
+              <div style="color:var(--gray); font-size:0.8rem;">موظف متخصص</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">
+      <h2>قيمنا <span>الجوهرية</span></h2>
+    </div>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="v-icon">⚡</div>
+        <h3>السرعة</h3>
+        <p>نضمن التوصيل في أسرع وقت ممكن</p>
+      </div>
+      <div class="value-card">
+        <div class="v-icon">🔒</div>
+        <h3>الأمان</h3>
+        <p>بضائعك محمية بالكامل معنا</p>
+      </div>
+      <div class="value-card">
+        <div class="v-icon">💯</div>
+        <h3>الموثوقية</h3>
+        <p>نلتزم بالوعود ونحترم المواعيد</p>
+      </div>
+      <div class="value-card">
+        <div class="v-icon">💬</div>
+        <h3>التواصل</h3>
+        <p>متاحون دائماً للإجابة على استفساراتك</p>
+      </div>
+      <div class="value-card">
+        <div class="v-icon">💰</div>
+        <h3>الأسعار</h3>
+        <p>أسعار تنافسية وشفافة بدون مفاجآت</p>
+      </div>
+      <div class="value-card">
+        <div class="v-icon">🌍</div>
+        <h3>التغطية</h3>
+        <p>نصل إلى كل مكان في العالم</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-logo">SPEED OF <span>LIGHT</span></div>
+    <p>شركة الشحن الأسرع والأكثر موثوقية</p>
+    <div class="footer-line">© 2025 Speed Of Light — جميع الحقوق محفوظة</div>
+  </footer>
+</div>
+
+<!-- ===== CALCULATOR PAGE ===== -->
+<div class="page" id="page-calculator">
+  <div class="calc-page">
+    <div class="calc-header">
+      <h1>حاسبة <span>الشحن</span></h1>
+      <p>احسب تكلفة شحنتك بدقة عالية بناءً على الوزن والأبعاد</p>
+    </div>
+
+    <div class="calc-container">
+      <h2>⚖️ بيانات الشحنة</h2>
+      <div class="form-row">
+        <div class="form-group">
+          <label>الوزن الفعلي (كغ)</label>
+          <input type="number" id="weight" placeholder="مثال: 5" min="0.1" step="0.1">
+        </div>
+        <div class="form-group">
+          <label>نوع الشحن</label>
+          <select id="shipType">
+            <option value="standard">شحن عادي</option>
+            <option value="express">شحن سريع (24h)</option>
+            <option value="economy">شحن اقتصادي</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="margin-bottom:1rem; font-size:0.85rem; color:var(--gray); font-weight:600;">📐 أبعاد الطرد (سم)</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>الطول</label>
+          <input type="number" id="length" placeholder="سم" min="1">
+        </div>
+        <div class="form-group">
+          <label>العرض</label>
+          <input type="number" id="width" placeholder="سم" min="1">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>الارتفاع</label>
+          <input type="number" id="height" placeholder="سم" min="1">
+        </div>
+        <div class="form-group">
+          <label>الوجهة</label>
+          <select id="destination">
+            <option value="local">داخل المدينة</option>
+            <option value="domestic">داخل الدولة</option>
+            <option value="regional">دول مجاورة</option>
+            <option value="international">دولي</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="btn-primary" onclick="calculateShipping()" style="width:100%; font-size:1.1rem; padding:1rem;">
+        🔢 احسب التكلفة
+      </button>
+    </div>
+
+    <div class="calc-result" id="calcResult">
+      <div class="result-label">إجمالي تكلفة الشحن</div>
+      <div class="result-price" id="resultPrice">0</div>
+      <div class="result-currency">ليرة تركية (₺)</div>
+      <div class="result-breakdown">
+        <div class="breakdown-item">
+          <div class="breakdown-label">الوزن المستخدم</div>
+          <div class="breakdown-value" id="usedWeight">—</div>
+        </div>
+        <div class="breakdown-item">
+          <div class="breakdown-label">الوزن الحجمي</div>
+          <div class="breakdown-value" id="volumeWeight">—</div>
+        </div>
+        <div class="breakdown-item">
+          <div class="breakdown-label">وقت التوصيل</div>
+          <div class="breakdown-value" id="deliveryTime">—</div>
+        </div>
+      </div>
+      <div style="margin-top:1.5rem;">
+        <button class="whatsapp-btn" onclick="sendCalcToWhatsapp()">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          أرسل الحساب عبر واتساب
+        </button>
+      </div>
+    </div>
+
+    <div style="background:var(--black-2); border:1px solid var(--gray-light); border-radius:8px; padding:1.5rem; margin-top:1.5rem;">
+      <h3 style="margin-bottom:1rem; font-size:1rem;">ℹ️ معلومة: الوزن الحجمي</h3>
+      <p style="color:var(--gray); font-size:0.9rem; line-height:1.7;">يُحسب الوزن الحجمي بالمعادلة: <strong style="color:var(--red);">(الطول × العرض × الارتفاع) ÷ 5000</strong>. يُستخدم الأعلى بين الوزن الفعلي والوزن الحجمي لتحديد السعر النهائي.</p>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-logo">SPEED OF <span>LIGHT</span></div>
+    <p>شركة الشحن الأسرع والأكثر موثوقية</p>
+    <div class="footer-line">© 2025 Speed Of Light — جميع الحقوق محفوظة</div>
+  </footer>
+</div>
+
+<!-- ===== ORDER PAGE ===== -->
+<div class="page" id="page-order">
+  <div class="order-page">
+    <div class="order-header">
+      <h1>اطلب <span>الآن</span></h1>
+      <p>أرسل رابط المنتج من منصتك المفضلة وسنتولى الباقي</p>
+    </div>
+
+    <div class="platform-tabs">
+      <button class="platform-tab active" onclick="selectPlatform(this, 'Trendyol')">🛒 Trendyol</button>
+      <button class="platform-tab" onclick="selectPlatform(this, 'Hepsiburada')">🛍️ Hepsiburada</button>
+      <button class="platform-tab" onclick="selectPlatform(this, 'Amazon')">📦 Amazon</button>
+      <button class="platform-tab" onclick="selectPlatform(this, 'N11')">🏪 N11</button>
+      <button class="platform-tab" onclick="selectPlatform(this, 'أخرى')">🔗 أخرى</button>
+    </div>
+
+    <div class="order-form">
+      <div class="form-group" style="margin-bottom:1.5rem;">
+        <label>🔗 رابط المنتج</label>
+        <div class="url-input-wrapper">
+          <input type="url" id="productUrl" placeholder="https://www.trendyol.com/..." oninput="previewProduct()">
+        </div>
+      </div>
+
+      <div class="product-preview" id="productPreview">
+        <div class="preview-icon">📦</div>
+        <div class="preview-info">
+          <h3 id="previewTitle">المنتج المطلوب</h3>
+          <p id="previewPlatform">منصة التسوق</p>
+        </div>
+      </div>
+
+      <div class="customer-fields">
+        <div class="form-group">
+          <label>الاسم الكامل</label>
+          <input type="text" id="custName" placeholder="اسمك الكامل">
+        </div>
+        <div class="form-group">
+          <label>رقم الهاتف</label>
+          <input type="tel" id="custPhone" placeholder="+905xxxxxxxxx" dir="ltr">
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-bottom:1.5rem;">
+        <label>عنوان التوصيل</label>
+        <input type="text" id="custAddress" placeholder="المدينة، الحي، تفاصيل العنوان">
+      </div>
+
+      <div class="form-group" style="margin-bottom:1.5rem;">
+        <label>ملاحظات إضافية (اختياري)</label>
+        <input type="text" id="custNotes" placeholder="لون معين، مقاس، أي تفاصيل...">
+      </div>
+
+      <button class="whatsapp-btn" onclick="sendOrderWhatsapp()">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        إرسال الطلب عبر واتساب
+      </button>
+
+      <div class="note-box">
+        ⚡ سيتم إرسال طلبك مباشرة إلى فريق Speed Of Light عبر واتساب، وسنتواصل معك خلال دقائق لتأكيد الطلب وإعطائك عرض السعر.
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-logo">SPEED OF <span>LIGHT</span></div>
+    <p>شركة الشحن الأسرع والأكثر موثوقية</p>
+    <div class="footer-line">© 2025 Speed Of Light — جميع الحقوق محفوظة</div>
+  </footer>
+</div>
+
+<script>
+  // ---- رقم واتساب الشركة (غيّره لرقمك الحقيقي) ----
+  const WHATSAPP_NUMBER = '905XXXXXXXXX';
+
+  let selectedPlatform = 'Trendyol';
+
+  function showPage(page) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+    document.getElementById('page-' + page).classList.add('active');
+    document.getElementById('nav-' + page).classList.add('active');
+    window.scrollTo(0, 0);
+  }
+
+  function selectPlatform(el, name) {
+    document.querySelectorAll('.platform-tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    selectedPlatform = name;
+    const input = document.getElementById('productUrl');
+    const placeholders = {
+      'Trendyol': 'https://www.trendyol.com/...',
+      'Hepsiburada': 'https://www.hepsiburada.com/...',
+      'Amazon': 'https://www.amazon.com.tr/...',
+      'N11': 'https://www.n11.com/...',
+      'أخرى': 'https://...'
+    };
+    input.placeholder = placeholders[name] || 'https://...';
+  }
+
+  function previewProduct() {
+    const url = document.getElementById('productUrl').value;
+    const preview = document.getElementById('productPreview');
+    const title = document.getElementById('previewTitle');
+    const platform = document.getElementById('previewPlatform');
+
+    if (url.length > 10) {
+      preview.classList.add('show');
+      title.textContent = 'المنتج المحدد من ' + selectedPlatform;
+      platform.textContent = '🔗 ' + url.substring(0, 60) + (url.length > 60 ? '...' : '');
+    } else {
+      preview.classList.remove('show');
+    }
+  }
+
+  function calculateShipping() {
+    const weight = parseFloat(document.getElementById('weight').value) || 0;
+    const length = parseFloat(document.getElementById('length').value) || 0;
+    const width = parseFloat(document.getElementById('width').value) || 0;
+    const height = parseFloat(document.getElementById('height').value) || 0;
+    const shipType = document.getElementById('shipType').value;
+    const destination = document.getElementById('destination').value;
+
+    if (!weight && (!length || !width || !height)) {
+      alert('يرجى إدخال الوزن أو أبعاد الطرد');
+      return;
+    }
+
+    const volumeWeight = (length * width * height) / 5000;
+    const chargeableWeight = Math.max(weight, volumeWeight);
+
+    const baseRates = { local: 15, domestic: 25, regional: 60, international: 120 };
+    const typeMultiplier = { standard: 1, express: 1.7, economy: 0.75 };
+    const deliveryTimes = {
+      standard: { local: '1-2 يوم', domestic: '2-3 أيام', regional: '5-7 أيام', international: '7-14 يوم' },
+      express: { local: '24 ساعة', domestic: '1-2 يوم', regional: '3-4 أيام', international: '4-7 أيام' },
+      economy: { local: '3-5 أيام', domestic: '5-7 أيام', regional: '10-14 يوم', international: '14-21 يوم' }
+    };
+
+    const baseRate = baseRates[destination];
+    const multiplier = typeMultiplier[shipType];
+    const totalPrice = Math.ceil((baseRate + chargeableWeight * 3.5) * multiplier);
+
+    document.getElementById('resultPrice').textContent = totalPrice;
+    document.getElementById('usedWeight').textContent = chargeableWeight.toFixed(2) + ' كغ';
+    document.getElementById('volumeWeight').textContent = volumeWeight > 0 ? volumeWeight.toFixed(2) + ' كغ' : '—';
+    document.getElementById('deliveryTime').textContent = deliveryTimes[shipType][destination];
+
+    const result = document.getElementById('calcResult');
+    result.classList.add('show');
+    result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function sendCalcToWhatsapp() {
+    const price = document.getElementById('resultPrice').textContent;
+    const weight = document.getElementById('usedWeight').textContent;
+    const time = document.getElementById('deliveryTime').textContent;
+    const dest = document.getElementById('destination');
+    const ship = document.getElementById('shipType');
+
+    const msg = `🚀 *Speed Of Light - استفسار عن شحنة*\n\n` +
+      `📦 نوع الشحن: ${ship.options[ship.selectedIndex].text}\n` +
+      `🌍 الوجهة: ${dest.options[dest.selectedIndex].text}\n` +
+      `⚖️ الوزن: ${weight}\n` +
+      `⏱️ وقت التوصيل: ${time}\n` +
+      `💰 السعر التقريبي: ${price} ₺\n\n` +
+      `أرجو تأكيد الطلب`;
+
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+  }
+
+  function sendOrderWhatsapp() {
+    const url = document.getElementById('productUrl').value;
+    const name = document.getElementById('custName').value;
+    const phone = document.getElementById('custPhone').value;
+    const address = document.getElementById('custAddress').value;
+    const notes = document.getElementById('custNotes').value;
+
+    if (!url) { alert('يرجى إدخال رابط المنتج'); return; }
+    if (!name) { alert('يرجى إدخال اسمك الكامل'); return; }
+    if (!phone) { alert('يرجى إدخال رقم الهاتف'); return; }
+    if (!address) { alert('يرجى إدخال عنوان التوصيل'); return; }
+
+    const msg = `🚀 *Speed Of Light - طلب جديد*\n\n` +
+      `🛒 المنصة: ${selectedPlatform}\n` +
+      `🔗 رابط المنتج: ${url}\n\n` +
+      `👤 الاسم: ${name}\n` +
+      `📞 الهاتف: ${phone}\n` +
+      `📍 العنوان: ${address}\n` +
+      (notes ? `📝 ملاحظات: ${notes}\n` : '') +
+      `\nأرجو معالجة الطلب ✅`;
+
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+  }
+</script>
+</body>
+</html>
